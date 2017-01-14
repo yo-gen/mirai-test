@@ -1,0 +1,15 @@
+<h1> Add User Form </h1>
+
+<h2><%= link_to "Find User", find_user_path %></h2>
+
+<%= form_for(@user) do |f| %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  </br></br>
+  <%= f.label :pincode %>
+  <%= f.text_field :pincode %>
+  </br></br>
+  <%= f.submit "Create User" %>
+
+<% end %>
