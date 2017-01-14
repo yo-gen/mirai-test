@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
         if UserCache.new.add_user_to_cache(@user)
-          format.html { redirect_to add_user_path, notice: 'User was successfully created.' }
+          format.html { redirect_to list_user_path(search_by: "id", search_text: @user.id.to_s), notice: 'User was successfully created.' }
         else
           format.html { render :new }
         end

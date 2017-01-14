@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'users#user_list'
+
   resources :users, only: [:create]
   get '/add_user', to: 'users#add_user'
   get '/find_user', to: 'users#find_user'
