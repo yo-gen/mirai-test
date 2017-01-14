@@ -8,7 +8,7 @@ class UserCache
   end
 
   def get_users_in_pincode(pincode)
-    users_in_pincode = Rails.cache.read(pincode)
+    users_in_pincode = Rails.cache.read("pin#{pincode}") #Add pin prefix to avoid cache keys conflicting with id.
     users_in_pincode.sort!{ |user1,user2| user1.name.downcase <=> user2.name.downcase } unless users_in_pincode.nil?
     users_in_pincode
   end
@@ -24,9 +24,9 @@ class UserCache
       end
 
       if get_users_in_pincode(user.pincode).nil?
-        Rails.cache.write(user.pincode, [user])
+        Rails.cache.write("pin#{user.pincode}", [user])
       else
-        Rails.cache.write(user.pincode, get_users_in_pincode(user.pincode).push(user))
+        Rails.cache.write("pin#{user.pincode}", get_users_in_pincode(user.pincode).push(user))
       end
 
       [user] #Return user to save by id key
